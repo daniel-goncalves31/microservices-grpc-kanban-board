@@ -31,7 +31,8 @@
     "grpc": "^1.24.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "ts-protoc-gen": "^0.12.1-pre.3266132"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
