@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  users-service:
+    container_name: users-service
+    restart: "always"
+    build:
+      context: ./users-service
+      target: development
+    volumes:
+      - ./users-service/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${USERS_SERVICE_SERVER_PORT}:${USERS_SERVICE_SERVER_PORT}
+    command: npm run start:dev
+    networks:
+      - webnet
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: "always"
+    networks:
+      - webnet
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+    ports:
+      - ${MONGO_PORT}:27017
+    volumes:
+      - mongodata:/data/db
+networks:
+  webnet:
+volumes:
+  mongodata:
