@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package users;
+
+service UsersService {
+  rpc Me (UserId) returns (User) {}
+}
+
+message UserId {
+  int32 id = 1;
+}
+
+message User {
+  int32 id = 1;
+  string name = 2;
+  string password = 3;
+  string email = 4;
+}
+

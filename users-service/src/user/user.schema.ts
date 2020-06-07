@@ -12,9 +12,6 @@ export class User extends Document {
 
   @Prop({ required: true, unique: true })
   email: string;
-
-  @Prop({ required: false })
-  image_url: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
