@@ -14,7 +14,7 @@ export class User extends Document {
   email: string;
 
   @Prop({ required: false })
-  image_url: string;
+  image_url?: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);

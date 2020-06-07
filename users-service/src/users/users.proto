@@ -5,10 +5,9 @@ package users;
 service UsersService {
   rpc CreateUser (NewUserRequest) returns (UserResponse) {}
   rpc Me (UserIdRequest) returns (UserResponse) {}
-  rpc GetAllUsers () returns (UsersResponse) {}
+  rpc GetAllUsers (UsersResponse) returns (UsersResponse) {}
 }
 
-// Find a user by id or email
 message UserIdRequest {
   int32 id = 1;
 }
