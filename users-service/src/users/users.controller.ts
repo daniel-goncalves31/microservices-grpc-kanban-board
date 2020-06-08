@@ -2,9 +2,9 @@ import { Controller } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { User } from './user.schema';
 import {
+  GetUserRequest,
   MultipleUsersResponse,
   NewUserRequest,
-  UserIdRequest,
   UsersProtoService,
 } from './users.interface';
 import { UserService } from './users.service';
@@ -13,14 +13,11 @@ import { UserService } from './users.service';
 export class UsersController implements UsersProtoService {
   constructor(private readonly userService: UserService) {}
 
-  @GrpcMethod('UsersService', 'Me')
-  async me(data: UserIdRequest): Promise<User> {
+  @GrpcMethod('UsersService', 'GetUser')
+  async getUser(data: GetUserRequest): Promise<User> {
     try {
-      const user = await this.userService.findUserByIdOrEmail({ id: data.id });
-
-      if (user) {
-        return user;
-      }
+      const user = await this.userService.findUserByIdOrEmail(data);
+      return user;
     } catch (error) {
       console.error(error);
       throw error;

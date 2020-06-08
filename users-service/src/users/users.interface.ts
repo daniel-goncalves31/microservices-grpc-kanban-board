@@ -1,7 +1,8 @@
 import { User } from './user.schema';
 
-export interface UserIdRequest {
-  id: string;
+export interface GetUserRequest {
+  id?: string;
+  email?: string;
 }
 
 export interface NewUserRequest {
@@ -17,6 +18,6 @@ export interface MultipleUsersResponse {
 
 export interface UsersProtoService {
   createUser(data: NewUserRequest): Promise<User>;
-  me(data: UserIdRequest): Promise<User>;
+  getUser(data: GetUserRequest): Promise<User>;
   getAllUsers(data: {}): Promise<MultipleUsersResponse>;
 }

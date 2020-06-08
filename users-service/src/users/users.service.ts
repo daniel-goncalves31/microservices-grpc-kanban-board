@@ -2,12 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './user.schema';
-import { NewUserRequest } from './users.interface';
-
-interface FindUser {
-  id?: string;
-  email?: string;
-}
+import { GetUserRequest, NewUserRequest } from './users.interface';
 
 @Injectable()
 export class UserService {
@@ -20,7 +15,7 @@ export class UserService {
     return this.user.find();
   }
 
-  async findUserByIdOrEmail({ id, email }: FindUser) {
+  async findUserByIdOrEmail({ id, email }: GetUserRequest) {
     if (id) return this.user.findById(id);
     else return this.user.findOne({ email });
   }

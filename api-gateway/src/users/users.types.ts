@@ -1,14 +1,23 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Observable } from 'rxjs';
 import { User } from './user.schema';
 
-@InputType()
-export class UserIdRequest {
-  @Field(_type => String, { nullable: false })
-  id: string;
+export class GetUserRequest {
+  id?: string;
+  email?: string;
 }
 
 @InputType()
-export class NewUserRequest {
+export class LoginUserInput {
+  @Field(_type => String, { nullable: false })
+  password: string;
+
+  @Field(_type => String, { nullable: false })
+  email: string;
+}
+
+@InputType()
+export class SignUpUserInput {
   @Field(_type => String, { nullable: false })
   name: string;
 
@@ -29,7 +38,7 @@ export class MultipleUsersResponse {
 }
 
 export interface UsersProtoService {
-  createUser(data: NewUserRequest): Promise<User>;
-  me(data: UserIdRequest): Promise<User>;
-  getAllUsers(data: {}): Promise<MultipleUsersResponse>;
+  createUser(data: SignUpUserInput): Observable<User>;
+  getUser(data: GetUserRequest): Observable<User>;
+  getAllUsers(data: {}): Observable<MultipleUsersResponse>;
 }

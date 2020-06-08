@@ -4,12 +4,13 @@ package users;
 
 service UsersService {
   rpc CreateUser (NewUserRequest) returns (UserResponse) {}
-  rpc Me (UserIdRequest) returns (UserResponse) {}
+  rpc GetUser (GetUserRequest) returns (UserResponse) {}
   rpc GetAllUsers (EmptyRequest) returns (MutlipleUsersResponse) {}
 }
 
-message UserIdRequest {
+message GetUserRequest {
   string id = 1;
+  string email = 2;
 }
 
 message NewUserRequest {
