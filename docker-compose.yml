@@ -1,6 +1,22 @@
 version: "3.7"
 
 services:
+  # api-gateway:
+  #   container_name: api-gateway
+  #   build:
+  #     context: ./api-gateway
+  #     target: development
+  #   volumes:
+  #     - ./api-gateway:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   ports:
+  #     - ${API_PORT}:${API_PORT}
+  #   command: npm run start:dev
+  #   networks:
+  #     - webnet
+  #   depends_on:
+  #     - users-service
+
   # users-service:
   #   container_name: users-service
   #   build:
@@ -17,11 +33,7 @@ services:
   #   depends_on:
   #     - mongo-db
   #   environment:
-  #     MONGO_USERNAME: ${MONGO_USERNAME}
-  #     MONGO_PASSWORD: ${MONGO_PASSWORD}
-  #     MONGO_DATABASE: ${MONGO_DATABASE}
-  #     MONGO_PORT: ${MONGO_PORT}
-  #     MONGO_HOST: localhost
+  #     MONGO_URL: mongodb://$MONGO_USERNAME:$MONGO_PASSWORD@mongo-db:$MONGO_PORT/$MONGO_DATABASE?authSource=admin
 
   mongo-db:
     container_name: mongo-db

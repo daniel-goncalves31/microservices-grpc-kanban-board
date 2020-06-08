@@ -2,14 +2,18 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { UserModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    UserModule,
+    UsersModule,
     GraphQLModule.forRoot({
-      autoSchemaFile: join(__dirname, 'schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      cors: { credentials: true },
+      context: ctx => ctx,
     }),
+    AuthModule,
   ],
 })
 export class AppModule {}

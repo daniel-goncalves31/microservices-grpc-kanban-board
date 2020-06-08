@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = app.get(ConfigService);
+  console.log(config.get('MONGO_URL'));
 
   app.connectMicroservice({
     transport: Transport.GRPC,

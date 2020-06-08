@@ -1,0 +1,37 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  name: String!
+  email: String!
+  image_url: String
+}
+
+type MultipleUsersResponse {
+  users: [User!]!
+}
+
+type Query {
+  me(userId: String!): User!
+  getAllUsers: MultipleUsersResponse!
+}
+
+type Mutation {
+  login(loginUserInput: LoginUserInput!): User!
+  signUp(signUpUserInput: SignUpUserInput!): User!
+  logOut: Boolean!
+}
+
+input LoginUserInput {
+  password: String!
+  email: String!
+}
+
+input SignUpUserInput {
+  name: String!
+  password: String!
+  email: String!
+  image_url: String
+}
