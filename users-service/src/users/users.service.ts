@@ -5,7 +5,7 @@ import { User } from './user.schema';
 import { NewUserRequest } from './users.interface';
 
 interface FindUser {
-  id?: string | number;
+  id?: string;
   email?: string;
 }
 

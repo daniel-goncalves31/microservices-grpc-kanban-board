@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { User } from './user.schema';
 import {
+  MultipleUsersResponse,
   NewUserRequest,
   UserIdRequest,
   UsersProtoService,
@@ -38,10 +39,10 @@ export class UsersController implements UsersProtoService {
   }
 
   @GrpcMethod('UsersService', 'GetAllUsers')
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(_data: {}): Promise<MultipleUsersResponse> {
     try {
       const users = await this.userService.findAllUsers();
-      return users;
+      return { users };
     } catch (error) {
       console.error(error);
       throw error;

@@ -1,7 +1,7 @@
 import { User } from './user.schema';
 
 export interface UserIdRequest {
-  id: number;
+  id: string;
 }
 
 export interface NewUserRequest {
@@ -11,8 +11,12 @@ export interface NewUserRequest {
   image_url?: string;
 }
 
+export interface MultipleUsersResponse {
+  users: User[];
+}
+
 export interface UsersProtoService {
   createUser(data: NewUserRequest): Promise<User>;
   me(data: UserIdRequest): Promise<User>;
-  getAllUsers(): Promise<User[]>;
+  getAllUsers(data: {}): Promise<MultipleUsersResponse>;
 }
