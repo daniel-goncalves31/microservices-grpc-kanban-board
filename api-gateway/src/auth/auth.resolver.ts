@@ -2,7 +2,7 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcryptjs';
 import { Response } from 'express';
-import { ResGql } from 'src/shared/decorators';
+import { ResGql } from '../shared/decorators';
 import { User } from '../users/user.schema';
 import { UsersService } from '../users/users.service';
 import { LoginUserInput, SignUpUserInput } from '../users/users.types';
@@ -14,7 +14,7 @@ export class AuthResolver {
     private readonly usersService: UsersService,
   ) {}
 
-  @Mutation(returns => User!)
+  @Mutation(() => User)
   async login(
     @Args('loginUserInput', { type: () => LoginUserInput })
     loginUserInput: LoginUserInput,
@@ -46,7 +46,7 @@ export class AuthResolver {
     }
   }
 
-  @Mutation(returns => User!)
+  @Mutation(() => User)
   async signUp(
     @Args('signUpUserInput', { type: () => SignUpUserInput })
     signUpUserInput: SignUpUserInput,

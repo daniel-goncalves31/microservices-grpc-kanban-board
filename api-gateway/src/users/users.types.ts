@@ -9,31 +9,31 @@ export class GetUserRequest {
 
 @InputType()
 export class LoginUserInput {
-  @Field(_type => String, { nullable: false })
+  @Field(() => String, { nullable: false })
   password: string;
 
-  @Field(_type => String, { nullable: false })
+  @Field(() => String, { nullable: false })
   email: string;
 }
 
 @InputType()
 export class SignUpUserInput {
-  @Field(_type => String, { nullable: false })
+  @Field(() => String, { nullable: false })
   name: string;
 
-  @Field(_type => String, { nullable: false })
+  @Field(() => String, { nullable: false })
   password: string;
 
-  @Field(_type => String, { nullable: false })
+  @Field(() => String, { nullable: false })
   email: string;
 
-  @Field(_type => String, { nullable: true })
+  @Field(() => String, { nullable: true })
   image_url?: string;
 }
 
 @ObjectType()
 export class MultipleUsersResponse {
-  @Field(type => [User]!, { nullable: false })
+  @Field(() => [User], { nullable: false })
   users: User[];
 }
 

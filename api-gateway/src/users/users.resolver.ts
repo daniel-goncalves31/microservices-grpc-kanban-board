@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { UserAuthGuard } from 'src/shared/auth.guard';
+import { UserAuthGuard } from '../shared/auth.guard';
 import { User } from './user.schema';
 import { UsersService } from './users.service';
 import { MultipleUsersResponse } from './users.types';
@@ -10,7 +10,7 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @UseGuards(UserAuthGuard)
-  @Query(returns => User!)
+  @Query(() => User)
   async me(
     @Args('userId', { type: () => String })
     userId: string,
@@ -25,7 +25,7 @@ export class UsersResolver {
   }
 
   @UseGuards(UserAuthGuard)
-  @Query(returns => MultipleUsersResponse!)
+  @Query(() => MultipleUsersResponse)
   async getAllUsers(): Promise<MultipleUsersResponse> {
     try {
       const multipleUsers = await this.usersService.getAllUsers();

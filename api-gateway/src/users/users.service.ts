@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Client, ClientGrpc } from '@nestjs/microservices';
-import { userGrpcClientOptions } from 'src/users/grpcUserOptions';
+import { userGrpcClientOptions } from './grpcUserOptions';
 import { SignUpUserInput, UsersProtoService } from './users.types';
 
 @Injectable()
