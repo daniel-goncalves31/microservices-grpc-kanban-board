@@ -2,4 +2,16 @@
 
 @tailwind components;
 
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+}
+
+* {
+  outline: none;
+}
+
 @tailwind utilities;

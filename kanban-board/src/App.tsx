@@ -1,13 +1,12 @@
-import { motion } from "framer-motion";
 import React from "react";
-import "./App.css";
 import "./assets/main.css";
+import Routes from "./Routes";
 
 function App() {
   return (
-    <motion.h1 className="text-indigo-100" animate={{ x: 50, y: 50 }}>
-      Hello World
-    </motion.h1>
+    <div className="bg-gray-100 h-full w-full">
+      <Routes />
+    </div>
   );
 }
 
