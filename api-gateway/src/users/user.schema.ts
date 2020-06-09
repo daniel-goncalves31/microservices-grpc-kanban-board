@@ -12,7 +12,4 @@ export class User {
   email: string;
 
   password: string;
-
-  @Field(() => String, { nullable: true })
-  image_url?: string;
 }

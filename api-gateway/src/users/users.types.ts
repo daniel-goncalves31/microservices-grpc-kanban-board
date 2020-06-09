@@ -26,9 +26,6 @@ export class SignUpUserInput {
 
   @Field(() => String, { nullable: false })
   email: string;
-
-  @Field(() => String, { nullable: true })
-  image_url?: string;
 }
 
 @ObjectType()

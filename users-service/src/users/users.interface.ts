@@ -9,7 +9,6 @@ export interface NewUserRequest {
   name: string;
   password: string;
   email: string;
-  image_url?: string;
 }
 
 export interface MultipleUsersResponse {

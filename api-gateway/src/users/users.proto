@@ -17,7 +17,6 @@ message NewUserRequest {
   string name = 1;
   string password = 2;
   string email = 3;
-  string image_url = 4;
 }
 
 message UserResponse {
@@ -25,7 +24,6 @@ message UserResponse {
   string name = 2;
   string password = 3;
   string email = 4;
-  string image_url = 5;
 }
 
 message MutlipleUsersResponse {
