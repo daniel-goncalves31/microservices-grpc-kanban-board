@@ -14,7 +14,7 @@ type MultipleUsersResponse {
 }
 
 type Query {
-  me(userId: String!): User!
+  me: User
   getAllUsers: MultipleUsersResponse!
 }
 
