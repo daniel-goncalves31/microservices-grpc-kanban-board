@@ -1,13 +1,56 @@
+import { useFormik } from "formik";
+import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";
 import AuthIcon from "../../assets/auth_icon.png";
+import { useUserContext } from "../../contexts/UserContext";
+import { useLoginMutation } from "../../graphql/generated";
+import { loginValidationSchema } from "../../utils/validation-schemas/login";
 import Input from "../shared/Input";
 
 interface Props {}
 
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
 const Login: React.FC<Props> = () => {
+  const [login, { loading }] = useLoginMutation();
+  const { setCurrentUser } = useUserContext();
+
+  const onSubmit = async ({ email, password }: LoginCredentials) => {
+    try {
+      const { data } = await login({
+        variables: { loginUserInput: { email, password } },
+      });
+
+      if (data && data.login) {
+        setCurrentUser(data.login);
+      }
+
+      console.log(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const formik = useFormik<LoginCredentials>({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit,
+    validationSchema: loginValidationSchema,
+  });
+
   return (
-    <div className="w-4/6 p-4">
+    <motion.div
+      className="w-4/6 p-4"
+      initial={{ opacity: 0, x: "150%" }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="flex flex-col items-center">
         <img src={AuthIcon} alt="icon" className="w-24 h-24" />
         <div className="mb-4 font-semibold text-3xl">
@@ -15,26 +58,36 @@ const Login: React.FC<Props> = () => {
           <span>Back</span>
         </div>
       </div>
-      <form>
+
+      <form onSubmit={formik.handleSubmit}>
         <Input
           label="Email"
-          name="email"
           type="email"
-          value=""
-          onBlur={() => {}}
-          onChange={() => {}}
+          name="email"
+          error={formik.errors.email}
+          touched={formik.touched.email}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
         <Input
           label="Password"
-          name="password"
           type="password"
-          value=""
-          onBlur={() => {}}
-          onChange={() => {}}
+          name="password"
+          error={formik.errors.password}
+          touched={formik.touched.password}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
         <button
           type="submit"
-          className="py-2 mt-8 w-1/2 block mx-auto bg-indigo-600 rounded-lg block text-white font-bold hover:bg-indigo-500"
+          disabled={!formik.isValid || loading}
+          className={`${
+            !formik.isValid || loading
+              ? "bg-indigo-300"
+              : "bg-indigo-600 hover:bg-indigo-500"
+          } py-2 mt-8 w-1/2 block mx-auto  rounded-lg block text-white font-bold`}
         >
           Login
         </button>
@@ -44,8 +97,8 @@ const Login: React.FC<Props> = () => {
         Don't have a account?
         <span className="font-medium text-indigo-600"> Sign Up</span>
       </Link>
-    </div>
+    </motion.div>
   );
 };
 
-export default Login;
+export default React.memo(Login);

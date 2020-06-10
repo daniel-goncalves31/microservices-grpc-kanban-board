@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 ./src/assets/main.css
+.env
+codegen.yml

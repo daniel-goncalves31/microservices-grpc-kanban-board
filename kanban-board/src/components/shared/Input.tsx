@@ -7,6 +7,8 @@ interface Props {
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   type: "text" | "password" | "email";
   value: string;
+  error?: string;
+  touched?: boolean;
 }
 
 const Input: React.FC<Props> = ({
@@ -16,6 +18,8 @@ const Input: React.FC<Props> = ({
   onChange,
   type,
   value,
+  error,
+  touched,
 }) => {
   return (
     <div className="flex flex-col space-y-1 my-2">
@@ -25,15 +29,22 @@ const Input: React.FC<Props> = ({
       <input
         autoComplete={type === "password" ? "off" : "on"}
         type={type}
-        defaultValue={value}
+        value={value}
         name={name}
         id={name}
         onChange={onChange}
         onBlur={onBlur}
-        className="px-4 py-2 text-sm bg-gray-300 text-gray-700 rounded-md border border-gray-200  hover:border-indigo-300 focus:border-indigo-400"
+        className={`${
+          error && touched
+            ? "border-red-500 bg-red-100"
+            : "border-gray-200 bg-gray-300 hover:border-indigo-300 focus:border-indigo-400"
+        } px-4 py-2 text-sm text-gray-700 rounded-md border `}
       />
+      {error && touched ? (
+        <p className="text-red-500 text-xs italic mt-2">{error}</p>
+      ) : null}
     </div>
   );
 };
 
-export default Input;
+export default React.memo(Input);
