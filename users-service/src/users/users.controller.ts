@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod } from '@nestjs/microservices';
+import { GrpcMethod, RpcException } from '@nestjs/microservices';
 import { User } from './user.schema';
 import {
   GetUserRequest,
@@ -17,10 +17,13 @@ export class UsersController implements UsersProtoService {
   async getUser(data: GetUserRequest): Promise<User> {
     try {
       const user = await this.userService.findUserByIdOrEmail(data);
+      if (!user) {
+        return {} as User;
+      }
       return user;
     } catch (error) {
       console.error(error);
-      throw error;
+      throw new RpcException(error);
     }
   }
 
@@ -31,7 +34,7 @@ export class UsersController implements UsersProtoService {
       return user;
     } catch (error) {
       console.error(error);
-      throw error;
+      throw new RpcException(error);
     }
   }
 
@@ -42,7 +45,7 @@ export class UsersController implements UsersProtoService {
       return { users };
     } catch (error) {
       console.error(error);
-      throw error;
+      throw new RpcException(error);
     }
   }
 }

@@ -22,8 +22,7 @@ export class AuthResolver {
   ): Promise<User> {
     try {
       const user = await this.usersService.getUserByEmail(loginUserInput.email);
-
-      if (!user) {
+      if (!user.id) {
         throw new Error('Email not found');
       }
 

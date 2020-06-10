@@ -10,7 +10,7 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      cors: { credentials: true },
+      cors: { credentials: true, origin: process.env.CLIENT_URL },
       context: ctx => ctx,
     }),
     AuthModule,
