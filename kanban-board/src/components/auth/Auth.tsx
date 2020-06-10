@@ -4,6 +4,7 @@ import { Redirect, Switch } from "react-router-dom";
 import loginImage from "../../assets/login_image.svg";
 import AuthRoute from "../shared/AuthRoute";
 import Login from "./Login";
+import SignUp from "./SignUp";
 interface Props {}
 
 const Auth: React.FC<Props> = () => {
@@ -22,7 +23,8 @@ const Auth: React.FC<Props> = () => {
       <div className="w-2/5 flex justify-center items-center">
         <Switch>
           <AuthRoute exact path="/auth/login" component={Login} />
-          <Redirect exact from="/auth" to="/auth/login" />
+          <AuthRoute exact path="/auth/signup" component={SignUp} />
+          <Redirect to="/auth/login" />
         </Switch>
       </div>
     </div>
