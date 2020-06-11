@@ -85,20 +85,6 @@ describe("Login Component", () => {
       fireEvent.blur(passwordInput);
       await waitFor(() => expect(passwordInput).toHaveClass("bg-red-100"));
       await waitFor(() => expect(submitButton).toBeDisabled());
-
-      fireEvent.change(passwordInput, {
-        target: { value: "password_without_capital_letter12" },
-      });
-      fireEvent.blur(passwordInput);
-      await waitFor(() => expect(passwordInput).toHaveClass("bg-red-100"));
-      await waitFor(() => expect(submitButton).toBeDisabled());
-
-      fireEvent.change(passwordInput, {
-        target: { value: "12345678" },
-      });
-      fireEvent.blur(passwordInput);
-      await waitFor(() => expect(passwordInput).toHaveClass("bg-red-100"));
-      await waitFor(() => expect(submitButton).toBeDisabled());
     });
 
     it("When a valid email and password is give, enable the button", async () => {

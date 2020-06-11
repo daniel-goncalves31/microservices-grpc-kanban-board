@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { Redirect, Switch } from "react-router-dom";
-import loginImage from "../../assets/login_image.svg";
+import LoginImage from "../../assets/login_image.svg";
 import AuthRoute from "../shared/AuthRoute";
 import Login from "./Login";
 import SignUp from "./SignUp";
+
 interface Props {}
 
 const Auth: React.FC<Props> = () => {
@@ -15,7 +16,7 @@ const Auth: React.FC<Props> = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
-          src={loginImage}
+          src={LoginImage}
           alt="login"
           className="max-w-xl"
         />

@@ -109,14 +109,14 @@ const SignUp: React.FC<Props> = () => {
           disabled={!formik.isValid || loading}
           className={`${
             !formik.isValid || loading
-              ? "bg-indigo-300"
+              ? "bg-indigo-300 cursor-not-allowed"
               : "bg-indigo-600 hover:bg-indigo-500"
-          } py-2 mt-8 w-1/2 block mx-auto  rounded-lg block text-white font-bold`}
+          } py-1 mt-4 w-3/5 block mx-auto rounded-lg block text-white font-bold`}
         >
           Sign Up
         </button>
       </form>
-      <hr className="mt-2" />
+      <hr className="mt-4" />
       <Link to="/auth/login" className="mt-2 block text-center text-sm">
         Already have an account?
         <span className="font-medium text-indigo-600"> Log In</span>

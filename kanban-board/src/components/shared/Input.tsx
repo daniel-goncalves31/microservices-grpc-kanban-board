@@ -23,7 +23,7 @@ const Input: React.FC<Props> = ({
 }) => {
   return (
     <div className="flex flex-col space-y-1 my-2">
-      <label className="text-sm font-medium" htmlFor={name}>
+      <label className="text-sm font-semibold" htmlFor={name}>
         {label}:
       </label>
       <input
@@ -37,8 +37,8 @@ const Input: React.FC<Props> = ({
         className={`${
           error && touched
             ? "border-red-500 bg-red-100"
-            : "border-gray-200 bg-gray-300 hover:border-indigo-300 focus:border-indigo-400"
-        } px-4 py-2 text-sm text-gray-700 rounded-md border `}
+            : "border-gray-400 bg-white hover:border-indigo-300 focus:border-indigo-400"
+        } px-4 py-2 text-sm text-gray-700 rounded-lg border `}
       />
       {error && touched ? (
         <p className="text-red-500 text-xs italic mt-2">{error}</p>
