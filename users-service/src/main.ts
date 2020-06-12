@@ -14,7 +14,7 @@ async function bootstrap() {
     options: {
       package: 'users',
       protoPath: join(__dirname, 'users', 'users.proto'),
-      url: config.get('SERVER_URL'),
+      url: config.get('USERS_SERVICE_URL'),
     },
   });
 

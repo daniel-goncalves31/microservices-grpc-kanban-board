@@ -1,55 +1,80 @@
 version: "3.7"
 
 services:
-  # api-gateway:
-  #   container_name: api-gateway
-  #   build:
-  #     context: ./api-gateway
-  #     target: development
-  #   volumes:
-  #     - ./api-gateway:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   ports:
-  #     - ${API_PORT}:${API_PORT}
-  #   command: npm run start:dev
-  #   networks:
-  #     - webnet
-  #   depends_on:
-  #     - users-service
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
+      target: development
+    volumes:
+      - ./api-gateway:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - $API_PORT:$API_PORT
+    command: npm run start:dev
+    depends_on:
+      - users-service
+      - projects-service
+    environment:
+      USERS_SERVICE_URL: users-service
+      PROJECTS_SERVICE_URL: projects-service
 
-  # users-service:
-  #   container_name: users-service
-  #   build:
-  #     context: ./users-service
-  #     target: development
-  #   volumes:
-  #     - ./users-service:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   ports:
-  #     - ${USERS_SERVICE_SERVER_PORT}:${USERS_SERVICE_SERVER_PORT}
-  #   command: npm run start:dev
-  #   networks:
-  #     - webnet
-  #   depends_on:
-  #     - mongo-db
-  #   environment:
-  #     MONGO_URL: mongodb://$MONGO_USERNAME:$MONGO_PASSWORD@mongo-db:$MONGO_PORT/$MONGO_DATABASE?authSource=admin
+  users-service:
+    container_name: users-service
+    build:
+      context: ./users-service
+      target: development
+    volumes:
+      - ./users-service:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev
+    depends_on:
+      - mongo-db
+    environment:
+      MONGO_URL: mongodb://$MONGO_USERNAME:$MONGO_PASSWORD@mongo-db:$MONGO_PORT/$MONGO_DATABASE?authSource=admin
+      USERS_SERVICE_URL: users-service
+
+  projects-service:
+    container_name: projects-service
+    build: ./projects-service
+    volumes:
+      - ./projects-service:/usr/src/app
+      - ./usr/src/app/node_modules
+    depends_on:
+      - postgres-db
+    environment:
+      PG_USER: $POSTGRES_USERNAME
+      PG_PASSWORD: $POSTGRES_PASSWORD
+      PG_HOST: postgres-db
+      PG_PORT: $POSTGRES_PORT
+      PG_DB: $POSTGRES_DATABASE
 
   mongo-db:
     container_name: mongo-db
     image: mongo
     restart: "always"
-    networks:
-      - webnet
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+      MONGO_INITDB_DATABASE: $MONGO_DATABASE
     ports:
-      - 0.0.0.0:${MONGO_PORT}:27017
+      - $MONGO_PORT:27017
     volumes:
       - mongodata:/data/db
-networks:
-  webnet:
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres
+    restart: "always"
+    ports:
+      - $POSTGRES_PORT:5432
+    environment:
+      POSTGRES_USER: $POSTGRES_USERNAME
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DATABASE
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
 volumes:
   mongodata:
+  pgdata:

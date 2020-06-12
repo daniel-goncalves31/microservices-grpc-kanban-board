@@ -5,7 +5,7 @@ import { join } from 'path';
 export const userGrpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,
   options: {
-    url: process.env.USER_SERVER_URL,
+    url: process.env.USERS_SERVICE_URL,
     package: 'users',
     protoPath: join(__dirname, 'users.proto'),
   },
