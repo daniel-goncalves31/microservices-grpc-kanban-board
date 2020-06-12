@@ -1,0 +1,22 @@
+{
+  "name": "projects-servicec",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^8.0.29",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "3.3.3333"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.4",
+    "grpc": "^1.24.3",
+    "pg": "^7.3.0",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.22"
+  },
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+  }
+}
