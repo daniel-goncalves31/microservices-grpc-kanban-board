@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package task;
+
+service TaskService {
+  rpc CreateTask (NewTaskRequest) returns (TaskResponse) {}
+  rpc UpdateTask (UpdateTaskRequest) returns (OkResponse) {}
+  rpc DeleteTask (TaskIdRequest) returns (OkResponse) {}
+}
+
+message NewTaskRequest {
+  string name = 1;
+  int32 board_id = 2;
+}
+
+message UpdateTaskRequest {
+  int32 id = 1;
+  string name = 2;
+}
+
+message TaskResponse {
+  int32 id = 1;
+  string name = 2;
+  string created_at = 3;
+  int32 board_id = 4;
+}
+
+message OkResponse {
+  bool ok = 1;
+}
+
+message TaskIdRequest {
+  int32 board_id = 1;
+}

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package board;
+
+import "./task.proto";
+
+service BoardService {
+  rpc GetAllBoards (EmptyRequest) returns (BoardsResponse);
+}
+
+message Board {
+  int32 id = 1;
+  enum Progress {
+    TODO = 0;
+    DOING = 1;
+    DONE = 2;
+  }
+  string created_at = 2;
+  int32 project_id = 3;
+  repeated TaskResponse tasks = 4;
+}
+
+message EmptyRequest {}
+
+message BoardsResponse {
+  repeated Board boards = 1;
+}

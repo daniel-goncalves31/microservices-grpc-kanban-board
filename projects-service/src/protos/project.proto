@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package projects;
+
+import "./board.proto";
+
+service ProjectService {
+  rpc GetAllProjects (EmptyRequest) returns (ProjectsResponse);
+  rpc CreateProject(NewProjectRequest) returns (ProjectResponse);
+  rpc UpdateProject (UpdateProjectRequest) returns (BoolResponse);
+  rpc DeleteProject (ProjectIdRequest) returns (BoolResponse);
+}
+
+message ProjectResponse {
+  int32 id = 1;
+  string name = 2;
+  enum Status {
+    COMPLETED = 0;
+    IN_PROGRESS = 1;
+  }
+  enum Priority {
+    LOW = 0;
+    MEDIUM = 1;
+    HIGH = 2;
+  }
+  string created_at = 3;
+  string user_id = 4;
+}
+
+message NewProjectRequest {
+  string name = 1;
+  enum Priority {
+    LOW = 0;
+    MEDIUM = 1;
+    HIGH = 2;
+  }
+  string user_id = 2;
+}
+
+message UpdateProjectRequest {
+  int32 project_id = 1;
+  string name = 2;
+  enum Status {
+    COMPLETED = 0;
+    IN_PROGRESS = 1;
+  }
+  enum Priority {
+    LOW = 0;
+    MEDIUM = 1;
+    HIGH = 2;
+  }
+}
+
+message ProjectsResponse {
+  repeated ProjectResponse projects = 1;
+}
+
+message EmptyRequest {}
+
+message BoolResponse {
+  bool ok = 1;
+}
+
+message ProjectIdRequest {
+  int32 project_id = 1;
+}
+
