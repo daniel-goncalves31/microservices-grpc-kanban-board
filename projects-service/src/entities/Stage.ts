@@ -18,7 +18,7 @@ enum Progress {
 }
 
 @Entity()
-export class Board extends BaseEntity {
+export class Stage extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -28,10 +28,10 @@ export class Board extends BaseEntity {
   @CreateDateColumn({ type: "timestamp", name: "created_at" })
   createdAt: Date;
 
-  @OneToMany((_type) => Task, (task) => task.board)
+  @OneToMany((_type) => Task, (task) => task.stage)
   tasks: Task[];
 
-  @ManyToOne((_type) => Project, (project) => project.boards, {
+  @ManyToOne((_type) => Project, (project) => project.stages, {
     cascade: true,
     onDelete: "CASCADE",
   })

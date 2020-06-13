@@ -1,3 +1,5 @@
+import { handleUnaryCall } from "grpc";
+
 enum Status {
   COMPLETED = 0,
   IN_PROGRESS = 1,
@@ -45,25 +47,9 @@ interface ProjectIdRequest {
   id: number;
 }
 
-interface Request<T> {
-  request: T;
-}
-
 export interface ProjectService {
-  getAllProjects: (
-    call: Request<EmptyRequest>,
-    callback: (error: Error | null, res?: ProjectsResponse) => {}
-  ) => void;
-  createProject: (
-    call: Request<NewProjectRequest>,
-    callback: (error: Error | null, res?: ProjectResponse) => {}
-  ) => void;
-  updateProject: (
-    call: Request<UpdateProjectRequest>,
-    callback: (error: Error | null, res?: OkResponse) => {}
-  ) => void;
-  deleteProject: (
-    call: Request<ProjectIdRequest>,
-    callback: (error: Error | null, res?: OkResponse) => {}
-  ) => void;
+  getAllProjects: handleUnaryCall<EmptyRequest, ProjectsResponse>;
+  createProject: handleUnaryCall<NewProjectRequest, ProjectResponse>;
+  updateProject: handleUnaryCall<UpdateProjectRequest, OkResponse>;
+  deleteProject: handleUnaryCall<ProjectIdRequest, OkResponse>;
 }

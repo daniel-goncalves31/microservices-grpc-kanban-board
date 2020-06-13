@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package board;
+package stage;
 
 import "./task.proto";
 
-service BoardService {
-  rpc GetAllBoards (EmptyRequest) returns (BoardsResponse);
+service StageService {
+  rpc GetAllProjectStages (ProjectIdRequest) returns (StagesResponse);
 }
 
 enum Progress {
@@ -14,7 +14,7 @@ enum Progress {
   DONE = 2;
 }
 
-message Board {
+message Stage {
   int32 id = 1;
   Progress progress = 2;
   string createdAt = 3;
@@ -22,8 +22,10 @@ message Board {
   repeated TaskResponse tasks = 5;
 }
 
-message EmptyRequest {}
+message ProjectIdRequest {
+  int32 projectId = 1;
+}
 
-message BoardsResponse {
-  repeated Board boards = 1;
+message StagesResponse {
+  repeated Stage stages = 1;
 }

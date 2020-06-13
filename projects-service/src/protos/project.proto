@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package project;
 
-import "./board.proto";
+import "./stage.proto";
 
 service ProjectService {
   rpc GetAllProjects (EmptyRequest) returns (ProjectsResponse);

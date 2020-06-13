@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Board } from "./Board";
+import { Stage } from "./Stage";
 
 enum Priority {
   LOW = "LOW",
@@ -39,6 +39,6 @@ export class Project extends BaseEntity {
   @Column({ type: "varchar", nullable: false, name: "user_id" })
   userId: string;
 
-  @OneToMany((_type) => Board, (board) => board.project)
-  boards: Board[];
+  @OneToMany((_type) => Stage, (stage) => stage.project)
+  stages: Stage[];
 }

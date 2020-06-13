@@ -1,20 +1,20 @@
-import { Board } from "../../entities/Board";
 import { Project } from "../../entities/Project";
-import { Progress } from "../board/board.interfaces";
+import { Stage } from "../../entities/Stage";
+import { Progress } from "../stage/stage.interfaces";
 import { ProjectService } from "./project.interfaces";
 
-async function generateBoards(projectId: number): Promise<Board[]> {
+async function generateStages(projectId: number): Promise<Stage[]> {
   try {
-    const boards = [];
-    const boardProgress = [Progress.TODO, Progress.DOING, Progress.DONE];
-    boardProgress.forEach(async (progress) => {
-      let board = new Board();
-      board.progress = progress;
-      board.projectId = projectId;
-      board = await board.save();
-      boards.push(board);
+    const stages = [];
+    const stageProgress = [Progress.TODO, Progress.DOING, Progress.DONE];
+    stageProgress.forEach(async (progress) => {
+      let stage = new Stage();
+      stage.progress = progress;
+      stage.projectId = projectId;
+      stage = await stage.save();
+      stages.push(stage);
     });
-    return boards;
+    return stages;
   } catch (error) {
     throw error;
   }
@@ -27,7 +27,7 @@ export const projectService: ProjectService = {
       callback(null, { projects });
     } catch (error) {
       console.error(error);
-      callback(error);
+      callback(error, null);
     }
   },
   createProject: async (call, callback) => {
@@ -38,14 +38,14 @@ export const projectService: ProjectService = {
       project.priority = priority;
       project.userId = userId;
       project = await project.save();
-      await generateBoards(project.id);
+      await generateStages(project.id);
       console.log(project);
       callback(null, {
         ...project,
       });
     } catch (error) {
       console.error(error);
-      callback(error);
+      callback(error, null);
     }
   },
   updateProject: async (call, callback) => {
@@ -59,7 +59,7 @@ export const projectService: ProjectService = {
       callback(null, { ok: true });
     } catch (error) {
       console.error(error);
-      callback(error);
+      callback(error, null);
     }
   },
   deleteProject: async (call, callback) => {
@@ -69,7 +69,7 @@ export const projectService: ProjectService = {
       callback(null, { ok: true });
     } catch (error) {
       console.error(error);
-      callback(error);
+      callback(error, null);
     }
   },
 };

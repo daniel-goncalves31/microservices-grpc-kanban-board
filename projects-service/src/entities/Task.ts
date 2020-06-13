@@ -7,7 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Board } from "./Board";
+import { Stage } from "./Stage";
 
 @Entity()
 export class Task extends BaseEntity {
@@ -20,13 +20,13 @@ export class Task extends BaseEntity {
   @CreateDateColumn({ type: "timestamp", name: "created_at" })
   createdAt: Date;
 
-  @ManyToOne((_type) => Board, (board) => board.tasks, {
+  @ManyToOne((_type) => Stage, (stage) => stage.tasks, {
     cascade: true,
     onDelete: "CASCADE",
   })
-  @JoinColumn({ name: "board_id", referencedColumnName: "id" })
-  board: Board;
+  @JoinColumn({ name: "stage_id", referencedColumnName: "id" })
+  stage: Stage;
 
-  @Column({ type: "integer", nullable: false, name: "board_id" })
-  boardId: number;
+  @Column({ type: "integer", nullable: false, name: "stage_id" })
+  stageId: number;
 }

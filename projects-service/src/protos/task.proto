@@ -10,7 +10,7 @@ service TaskService {
 
 message NewTaskRequest {
   string name = 1;
-  int32 boardId = 2;
+  int32 stageId = 2;
 }
 
 message UpdateTaskRequest {
@@ -21,8 +21,6 @@ message UpdateTaskRequest {
 message TaskResponse {
   int32 id = 1;
   string name = 2;
-  string createdAt = 3;
-  int32 boardId = 4;
 }
 
 message OkResponse {
@@ -30,5 +28,5 @@ message OkResponse {
 }
 
 message TaskIdRequest {
-  int32 boardId = 1;
+  int32 id = 1;
 }
