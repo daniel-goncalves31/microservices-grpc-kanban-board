@@ -1,14 +1,10 @@
-import { Server } from "http";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { Project } from "./entities/Project";
+import server from "./server/server";
 
 createConnection()
-  .then(async (connection) => {
+  .then(async (_) => {
     console.log("Connection completed");
-    const server = new Server();
-    server.listen(3335);
-    const projects = await Project.find();
-    console.log(projects);
+    server.start();
   })
   .catch((error) => console.log(error));

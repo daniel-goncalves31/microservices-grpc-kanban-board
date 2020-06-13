@@ -34,7 +34,7 @@ export class Project extends BaseEntity {
   status: Status;
 
   @CreateDateColumn({ type: "timestamp", name: "created_at" })
-  createdAt: Date;
+  createdAt: string;
 
   @Column({ type: "varchar", nullable: false, name: "user_id" })
   userId: string;

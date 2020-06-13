@@ -17,8 +17,8 @@ enum Progress {
 message Board {
   int32 id = 1;
   Progress progress = 2;
-  string created_at = 3;
-  int32 project_id = 4;
+  string createdAt = 3;
+  int32 projectId = 4;
   repeated TaskResponse tasks = 5;
 }
 

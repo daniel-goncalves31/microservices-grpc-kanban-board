@@ -16,8 +16,8 @@ export class Task extends BaseEntity {
   @Column({ type: "varchar", nullable: false })
   name: string;
 
-  @CreateDateColumn({ type: "timestamp" })
-  created_at: Date;
+  @CreateDateColumn({ type: "timestamp", name: "created_at" })
+  createdAt: Date;
 
   @ManyToOne((_type) => Board, (board) => board.tasks)
   board: Board;
