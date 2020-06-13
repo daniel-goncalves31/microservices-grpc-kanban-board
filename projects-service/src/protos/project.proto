@@ -1,54 +1,47 @@
 syntax = "proto3";
 
-package projects;
+package project;
 
 import "./board.proto";
 
 service ProjectService {
-  rpc GetAllProjects (EmptyRequest) returns (ProjectsResponse);
-  rpc CreateProject(NewProjectRequest) returns (ProjectResponse);
-  rpc UpdateProject (UpdateProjectRequest) returns (BoolResponse);
-  rpc DeleteProject (ProjectIdRequest) returns (BoolResponse);
+  rpc getAllProjects (EmptyRequest) returns (ProjectsResponse);
+  rpc createProject(NewProjectRequest) returns (ProjectResponse);
+  rpc updateProject (UpdateProjectRequest) returns (OkResponse);
+  rpc deleteProject (ProjectIdRequest) returns (OkResponse);
+}
+
+enum Priority {
+  LOW = 0;
+  MEDIUM = 1;
+  HIGH = 2;
+}
+
+enum Status {
+  COMPLETED = 0;
+  IN_PROGRESS = 1;
 }
 
 message ProjectResponse {
   int32 id = 1;
   string name = 2;
-  enum Status {
-    COMPLETED = 0;
-    IN_PROGRESS = 1;
-  }
-  enum Priority {
-    LOW = 0;
-    MEDIUM = 1;
-    HIGH = 2;
-  }
-  string created_at = 3;
-  string user_id = 4;
+  Status status = 3;
+  Priority priority = 4;
+  string createdAt = 5;
+  string userId = 6;
 }
 
 message NewProjectRequest {
   string name = 1;
-  enum Priority {
-    LOW = 0;
-    MEDIUM = 1;
-    HIGH = 2;
-  }
-  string user_id = 2;
+  Priority priority = 2;
+  string userId = 3;
 }
 
 message UpdateProjectRequest {
   int32 project_id = 1;
   string name = 2;
-  enum Status {
-    COMPLETED = 0;
-    IN_PROGRESS = 1;
-  }
-  enum Priority {
-    LOW = 0;
-    MEDIUM = 1;
-    HIGH = 2;
-  }
+  Status status = 3;
+  Priority priority = 4;
 }
 
 message ProjectsResponse {
@@ -57,7 +50,7 @@ message ProjectsResponse {
 
 message EmptyRequest {}
 
-message BoolResponse {
+message OkResponse {
   bool ok = 1;
 }
 

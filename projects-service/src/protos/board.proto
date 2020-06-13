@@ -8,16 +8,18 @@ service BoardService {
   rpc GetAllBoards (EmptyRequest) returns (BoardsResponse);
 }
 
+enum Progress {
+  TODO = 0;
+  DOING = 1;
+  DONE = 2;
+}
+
 message Board {
   int32 id = 1;
-  enum Progress {
-    TODO = 0;
-    DOING = 1;
-    DONE = 2;
-  }
-  string created_at = 2;
-  int32 project_id = 3;
-  repeated TaskResponse tasks = 4;
+  Progress progress = 2;
+  string created_at = 3;
+  int32 project_id = 4;
+  repeated TaskResponse tasks = 5;
 }
 
 message EmptyRequest {}

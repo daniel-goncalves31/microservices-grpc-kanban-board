@@ -9,14 +9,14 @@ import {
 import { Board } from "./Board";
 
 enum Priority {
-  LOW = 0,
-  MEDIUM = 1,
-  HIGH = 2,
+  LOW = "LOW",
+  MEDIUM = "MEDIUM",
+  HIGH = "HIGH",
 }
 
 enum Status {
-  IN_PROGRESS = 0,
-  COMPLETED = 1,
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
 }
 
 @Entity()
@@ -33,11 +33,11 @@ export class Project extends BaseEntity {
   @Column({ type: "enum", enum: Status, default: Status.IN_PROGRESS })
   status: Status;
 
-  @CreateDateColumn({ type: "timestamp" })
-  created_at: Date;
+  @CreateDateColumn({ type: "timestamp", name: "created_at" })
+  createdAt: Date;
 
-  @Column({ type: "varchar", nullable: false })
-  user_id: string;
+  @Column({ type: "varchar", nullable: false, name: "user_id" })
+  userId: string;
 
   @OneToMany((_type) => Board, (board) => board.project)
   boards: Board[];

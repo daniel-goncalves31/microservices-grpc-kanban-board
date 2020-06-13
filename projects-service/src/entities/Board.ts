@@ -11,9 +11,9 @@ import { Project } from "./Project";
 import { Task } from "./Task";
 
 enum Progress {
-  TODO = 0,
-  DOING = 1,
-  DONE = 2,
+  TODO = "TODO",
+  DOING = "DOING",
+  DONE = "DONE",
 }
 
 @Entity()
