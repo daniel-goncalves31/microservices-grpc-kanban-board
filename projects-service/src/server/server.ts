@@ -5,9 +5,7 @@ import { projectService } from "../services/project/project.service";
 import { stageService } from "../services/stage/stage.service";
 import { taskService } from "../services/task/task.service";
 
-const PROJECT_PATH = join(__dirname, "..", "protos", "project.proto");
-const STAGE_PATH = join(__dirname, "..", "protos", "stage.proto");
-const TASK_PATH = join(__dirname, "..", "protos", "task.proto");
+const ROOT_PATH = join(__dirname, "..", "protos", "root.proto");
 
 const protoLoaderOptions: protoloader.Options = {
   keepCase: false,
@@ -17,16 +15,11 @@ const protoLoaderOptions: protoloader.Options = {
   oneofs: true,
 };
 
-const projectDefinition = protoloader.loadSync(
-  PROJECT_PATH,
-  protoLoaderOptions
-);
-const stageDefinition = protoloader.loadSync(STAGE_PATH, protoLoaderOptions);
-const taskDefinition = protoloader.loadSync(TASK_PATH, protoLoaderOptions);
+const packagesDefinition = protoloader.loadSync(ROOT_PATH, protoLoaderOptions);
 
-const projectProto = grpc.loadPackageDefinition(projectDefinition).project;
-const stageProto = grpc.loadPackageDefinition(stageDefinition).stage;
-const taskProto = grpc.loadPackageDefinition(taskDefinition).task;
+const projectProto = grpc.loadPackageDefinition(packagesDefinition).project;
+const stageProto = grpc.loadPackageDefinition(packagesDefinition).stage;
+const taskProto = grpc.loadPackageDefinition(packagesDefinition).task;
 
 const server = new grpc.Server();
 server.addService((projectProto as any).ProjectService.service, projectService);

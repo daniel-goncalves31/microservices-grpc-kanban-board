@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+import "./project.proto";
+import "./stage.proto";
+import "./task.proto";
