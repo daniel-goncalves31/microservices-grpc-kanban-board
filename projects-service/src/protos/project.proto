@@ -5,10 +5,10 @@ package project;
 import "./board.proto";
 
 service ProjectService {
-  rpc getAllProjects (EmptyRequest) returns (ProjectsResponse);
-  rpc createProject(NewProjectRequest) returns (ProjectResponse);
-  rpc updateProject (UpdateProjectRequest) returns (OkResponse);
-  rpc deleteProject (ProjectIdRequest) returns (OkResponse);
+  rpc GetAllProjects (EmptyRequest) returns (ProjectsResponse);
+  rpc CreateProject(NewProjectRequest) returns (ProjectResponse);
+  rpc UpdateProject (UpdateProjectRequest) returns (OkResponse);
+  rpc DeleteProject (ProjectIdRequest) returns (OkResponse);
 }
 
 enum Priority {

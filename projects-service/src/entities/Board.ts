@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -30,6 +31,13 @@ export class Board extends BaseEntity {
   @OneToMany((_type) => Task, (task) => task.board)
   tasks: Task[];
 
-  @ManyToOne((_type) => Project, (project) => project.boards)
+  @ManyToOne((_type) => Project, (project) => project.boards, {
+    cascade: true,
+    onDelete: "CASCADE",
+  })
+  @JoinColumn({ name: "project_id" })
   project: Project;
+
+  @Column({ type: "integer", nullable: false, name: "project_id" })
+  projectId: number;
 }

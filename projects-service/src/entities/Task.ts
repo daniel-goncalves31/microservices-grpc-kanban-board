@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -19,6 +20,13 @@ export class Task extends BaseEntity {
   @CreateDateColumn({ type: "timestamp", name: "created_at" })
   createdAt: Date;
 
-  @ManyToOne((_type) => Board, (board) => board.tasks)
+  @ManyToOne((_type) => Board, (board) => board.tasks, {
+    cascade: true,
+    onDelete: "CASCADE",
+  })
+  @JoinColumn({ name: "board_id", referencedColumnName: "id" })
   board: Board;
+
+  @Column({ type: "integer", nullable: false, name: "board_id" })
+  boardId: number;
 }

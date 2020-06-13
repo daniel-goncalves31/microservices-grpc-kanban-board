@@ -1,6 +1,6 @@
 interface NewTaskRequest {
   name: string;
-  board_id: number;
+  boardId: number;
 }
 
 interface UpdateTaskRequest {
@@ -8,11 +8,11 @@ interface UpdateTaskRequest {
   name: string;
 }
 
-interface TaskResponse {
+export interface TaskResponse {
   id: number;
   name: string;
   created_at: string;
-  board_id: number;
+  boardId: number;
 }
 
 interface OkResponse {
@@ -20,7 +20,7 @@ interface OkResponse {
 }
 
 interface TaskIdRequest {
-  board_id: number;
+  boardId: number;
 }
 
 interface Request<T> {

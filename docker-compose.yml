@@ -48,6 +48,8 @@ services:
       PG_HOST: postgres-db
       PG_PORT: $POSTGRES_PORT
       PG_DB: $POSTGRES_DATABASE
+    ports:
+      - "3335:3335"
 
   mongo-db:
     container_name: mongo-db

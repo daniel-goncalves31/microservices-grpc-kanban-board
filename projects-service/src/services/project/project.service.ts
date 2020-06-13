@@ -1,5 +1,24 @@
+import { Board } from "../../entities/Board";
 import { Project } from "../../entities/Project";
+import { Progress } from "../board/board.interfaces";
 import { ProjectService } from "./project.interfaces";
+
+async function generateBoards(projectId: number): Promise<Board[]> {
+  try {
+    const boards = [];
+    const boardProgress = [Progress.TODO, Progress.DOING, Progress.DONE];
+    boardProgress.forEach(async (progress) => {
+      let board = new Board();
+      board.progress = progress;
+      board.projectId = projectId;
+      board = await board.save();
+      boards.push(board);
+    });
+    return boards;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export const projectService: ProjectService = {
   getAllProjects: async (_, callback) => {
@@ -19,6 +38,7 @@ export const projectService: ProjectService = {
       project.priority = priority;
       project.userId = userId;
       project = await project.save();
+      await generateBoards(project.id);
       console.log(project);
       callback(null, {
         ...project,
