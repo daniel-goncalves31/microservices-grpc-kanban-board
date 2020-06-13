@@ -1,6 +1,8 @@
+import { handleUnaryCall } from "grpc";
+
 interface NewTaskRequest {
   name: string;
-  boardId: number;
+  stageId: number;
 }
 
 interface UpdateTaskRequest {
@@ -11,8 +13,6 @@ interface UpdateTaskRequest {
 export interface TaskResponse {
   id: number;
   name: string;
-  created_at: string;
-  boardId: number;
 }
 
 interface OkResponse {
@@ -20,7 +20,7 @@ interface OkResponse {
 }
 
 interface TaskIdRequest {
-  boardId: number;
+  id: number;
 }
 
 interface Request<T> {
@@ -28,16 +28,7 @@ interface Request<T> {
 }
 
 export interface TaskService {
-  createTask: (
-    call: Request<NewTaskRequest>,
-    callback: (error: Error | null, res?: TaskResponse) => {}
-  ) => void;
-  updateTask: (
-    call: Request<UpdateTaskRequest>,
-    callback: (error: Error | null, res?: OkResponse) => {}
-  ) => void;
-  deleteTask: (
-    call: Request<TaskIdRequest>,
-    callback: (error: Error | null, res?: OkResponse) => {}
-  ) => void;
+  createTask: handleUnaryCall<NewTaskRequest, TaskResponse>;
+  updateTask: handleUnaryCall<UpdateTaskRequest, OkResponse>;
+  deleteTask: handleUnaryCall<TaskIdRequest, OkResponse>;
 }

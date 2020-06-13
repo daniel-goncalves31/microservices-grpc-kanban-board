@@ -1,28 +1,40 @@
+import { Task } from "../../entities/Task";
 import { TaskService } from "./task.interfaces";
 
 export const taskService: TaskService = {
   async createTask(call, callback) {
     try {
-      callback(null, {} as any);
+      const { stageId, name } = call.request;
+      let task = new Task();
+      task.name = name;
+      task.stageId = stageId;
+      task = await task.save();
+      callback(null, task);
     } catch (error) {
       console.error(error);
-      callback(error);
+      callback(error, null);
     }
   },
-  updateTask(call, callback) {
+  async updateTask(call, callback) {
     try {
-      callback(null, {} as any);
+      const { id, name } = call.request;
+      const task = await Task.findOne({ where: { id } });
+      task.name = name;
+      await task.save();
+      callback(null, { ok: true });
     } catch (error) {
       console.error(error);
-      callback(error);
+      callback(error, null);
     }
   },
-  deleteTask(call, callback) {
+  async deleteTask(call, callback) {
     try {
-      callback(null, {} as any);
+      const { id } = call.request;
+      await Task.delete({ id });
+      callback(null, { ok: true });
     } catch (error) {
       console.error(error);
-      callback(error);
+      callback(error, null);
     }
   },
 };
