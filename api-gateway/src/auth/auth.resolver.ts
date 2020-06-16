@@ -3,9 +3,12 @@ import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcryptjs';
 import { Response } from 'express';
 import { ResGql } from '../shared/decorators';
-import { User } from '../users/user.schema';
 import { UsersService } from '../users/users.service';
-import { LoginUserInput, SignUpUserInput } from '../users/users.types';
+import {
+  LoginUserInput,
+  SignUpUserInput,
+  UserResponse,
+} from '../users/users.types';
 
 @Resolver('Auth')
 export class AuthResolver {
@@ -14,12 +17,12 @@ export class AuthResolver {
     private readonly usersService: UsersService,
   ) {}
 
-  @Mutation(() => User)
+  @Mutation(() => UserResponse)
   async login(
     @Args('loginUserInput', { type: () => LoginUserInput })
     loginUserInput: LoginUserInput,
     @ResGql() res: Response,
-  ): Promise<User> {
+  ): Promise<UserResponse> {
     try {
       const user = await this.usersService.getUserByEmail(loginUserInput.email);
       if (!user.id) {
@@ -45,12 +48,12 @@ export class AuthResolver {
     }
   }
 
-  @Mutation(() => User)
+  @Mutation(() => UserResponse)
   async signUp(
     @Args('signUpUserInput', { type: () => SignUpUserInput })
     signUpUserInput: SignUpUserInput,
     @ResGql() res: Response,
-  ): Promise<User> {
+  ): Promise<UserResponse> {
     try {
       const user = await this.usersService.createUser(signUpUserInput);
       const token = this.jwtService.sign({ userId: user.id });

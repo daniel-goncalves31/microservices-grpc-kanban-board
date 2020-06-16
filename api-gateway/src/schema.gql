@@ -2,25 +2,37 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type UserResponse {
   id: String!
   name: String!
   email: String!
 }
 
 type MultipleUsersResponse {
-  users: [User!]!
+  users: [UserResponse!]!
+}
+
+type TaskResponse {
+  id: ID!
+  name: String!
+}
+
+type OkResponse {
+  ok: Boolean!
 }
 
 type Query {
-  me: User
+  me: UserResponse
   getAllUsers: MultipleUsersResponse!
 }
 
 type Mutation {
-  login(loginUserInput: LoginUserInput!): User!
-  signUp(signUpUserInput: SignUpUserInput!): User!
+  login(loginUserInput: LoginUserInput!): UserResponse!
+  signUp(signUpUserInput: SignUpUserInput!): UserResponse!
   logOut: Boolean!
+  newTask(newTaskInput: NewTaskRequest!): TaskResponse!
+  updateTask(updateTaskInput: UpdateTaskRequest!): OkResponse!
+  deleteTask(taskIdInput: TaskIdRequest!): OkResponse!
 }
 
 input LoginUserInput {
@@ -32,4 +44,18 @@ input SignUpUserInput {
   name: String!
   password: String!
   email: String!
+}
+
+input NewTaskRequest {
+  name: String!
+  stageId: ID!
+}
+
+input UpdateTaskRequest {
+  id: ID!
+  name: String!
+}
+
+input TaskIdRequest {
+  id: ID!
 }
