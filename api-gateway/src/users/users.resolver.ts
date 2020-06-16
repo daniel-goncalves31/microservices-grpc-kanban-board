@@ -2,17 +2,16 @@ import { UseGuards } from '@nestjs/common';
 import { Query, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from 'src/shared/decorators';
 import { UserAuthGuard } from '../shared/auth.guard';
-import { User } from './user.schema';
 import { UsersService } from './users.service';
-import { MultipleUsersResponse } from './users.types';
+import { MultipleUsersResponse, UserResponse } from './users.types';
 
 @Resolver('User')
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @UseGuards(UserAuthGuard)
-  @Query(() => User, { nullable: true })
-  async me(@CurrentUser() user: User): Promise<User> {
+  @Query(() => UserResponse, { nullable: true })
+  async me(@CurrentUser() user: UserResponse): Promise<UserResponse> {
     return user;
   }
 
