@@ -21,9 +21,27 @@ type OkResponse {
   ok: Boolean!
 }
 
+type Stage {
+  id: ID!
+  progress: Progress!
+  projectId: ID!
+  tasks: [TaskResponse!]!
+}
+
+enum Progress {
+  TODO
+  DOING
+  DONE
+}
+
+type StagesResponse {
+  stages: [Stage!]!
+}
+
 type Query {
   me: UserResponse
   getAllUsers: MultipleUsersResponse!
+  getStages(projectId: ID!): StagesResponse!
 }
 
 type Mutation {
