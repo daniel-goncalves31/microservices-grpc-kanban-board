@@ -5,7 +5,7 @@ package project;
 import "./stage.proto";
 
 service ProjectService {
-  rpc GetAllProjects (EmptyRequest) returns (ProjectsResponse);
+  rpc GetAllProjects (UserIdRequest) returns (ProjectsResponse);
   rpc CreateProject(NewProjectRequest) returns (ProjectResponse);
   rpc UpdateProject (UpdateProjectRequest) returns (OkResponse);
   rpc DeleteProject (ProjectIdRequest) returns (OkResponse);
@@ -48,7 +48,9 @@ message ProjectsResponse {
   repeated ProjectResponse projects = 1;
 }
 
-message EmptyRequest {}
+message UserIdRequest {
+  string userId = 1;
+}
 
 message OkResponse {
   bool ok = 1;

@@ -12,7 +12,7 @@ interface Stage {
   progress: Progress;
   createdAt: string;
   projectId: number;
-  task: TaskResponse[];
+  tasks: TaskResponse[];
 }
 
 interface ProjectIdRequest {

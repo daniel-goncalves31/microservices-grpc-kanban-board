@@ -14,7 +14,7 @@ enum Priority {
 interface ProjectResponse {
   id: number;
   name: string;
-
+  status: Status;
   priority: Priority;
   createdAt: string;
   userId: string;
@@ -37,7 +37,9 @@ interface ProjectsResponse {
   projects: ProjectResponse[];
 }
 
-interface EmptyRequest {}
+interface UserIdRequest {
+  userId: string;
+}
 
 interface OkResponse {
   ok: boolean;
@@ -48,7 +50,7 @@ interface ProjectIdRequest {
 }
 
 export interface ProjectService {
-  getAllProjects: handleUnaryCall<EmptyRequest, ProjectsResponse>;
+  getAllProjects: handleUnaryCall<UserIdRequest, ProjectsResponse>;
   createProject: handleUnaryCall<NewProjectRequest, ProjectResponse>;
   updateProject: handleUnaryCall<UpdateProjectRequest, OkResponse>;
   deleteProject: handleUnaryCall<ProjectIdRequest, OkResponse>;

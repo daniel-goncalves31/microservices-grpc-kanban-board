@@ -21,9 +21,10 @@ async function generateStages(projectId: number): Promise<Stage[]> {
 }
 
 export const projectService: ProjectService = {
-  getAllProjects: async (_, callback) => {
+  getAllProjects: async (call, callback) => {
     try {
-      const projects = await Project.find();
+      const { userId } = call.request;
+      const projects = await Project.find({ where: { userId } });
       callback(null, { projects });
     } catch (error) {
       console.error(error);

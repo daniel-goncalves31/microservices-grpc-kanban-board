@@ -1,3 +1,4 @@
+import { status } from "grpc";
 import { Task } from "../../entities/Task";
 import { TaskService } from "./task.interfaces";
 
@@ -19,6 +20,16 @@ export const taskService: TaskService = {
     try {
       const { id, name } = call.request;
       const task = await Task.findOne({ where: { id } });
+      if (!task) {
+        callback(
+          {
+            name: "Task",
+            message: "Task not found",
+            code: status.NOT_FOUND,
+          },
+          null
+        );
+      }
       task.name = name;
       await task.save();
       callback(null, { ok: true });

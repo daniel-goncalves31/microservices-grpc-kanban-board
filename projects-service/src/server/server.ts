@@ -25,6 +25,6 @@ const server = new grpc.Server();
 server.addService((projectProto as any).ProjectService.service, projectService);
 server.addService((stageProto as any).StageService.service, stageService);
 server.addService((taskProto as any).TaskService.service, taskService);
-server.bind("0.0.0.0:3335", grpc.ServerCredentials.createInsecure());
+server.bind("projects-service", grpc.ServerCredentials.createInsecure());
 
 export default server;
