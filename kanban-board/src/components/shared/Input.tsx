@@ -9,6 +9,7 @@ interface Props {
   value: string;
   error?: string;
   touched?: boolean;
+  disabled?: boolean;
 }
 
 const Input: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const Input: React.FC<Props> = ({
   value,
   error,
   touched,
+  disabled,
 }) => {
   return (
     <div className="flex flex-col space-y-1 my-2">
@@ -32,6 +34,7 @@ const Input: React.FC<Props> = ({
         value={value}
         name={name}
         id={name}
+        disabled={disabled}
         onChange={onChange}
         onBlur={onBlur}
         className={`${

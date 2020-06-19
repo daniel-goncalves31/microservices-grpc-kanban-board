@@ -2,12 +2,12 @@ import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import AuthIcon from "../../assets/auth_icon.png";
 import { useUserContext } from "../../contexts/UserContext";
 import { useLoginMutation } from "../../graphql/generated";
 import { loginValidationSchema } from "../../utils/validation-schemas/login";
 import Input from "../shared/Input";
-
 interface Props {}
 
 interface LoginCredentials {
@@ -67,6 +67,7 @@ const Login: React.FC<Props> = () => {
           error={formik.errors.email}
           touched={formik.touched.email}
           value={formik.values.email}
+          disabled={loading}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
@@ -77,6 +78,7 @@ const Login: React.FC<Props> = () => {
           error={formik.errors.password}
           touched={formik.touched.password}
           value={formik.values.password}
+          disabled={loading}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
@@ -87,9 +89,9 @@ const Login: React.FC<Props> = () => {
             !formik.isValid || loading
               ? "bg-indigo-300 cursor-not-allowed"
               : "bg-indigo-600 hover:bg-indigo-500"
-          } py-1 mt-8 w-3/5 block mx-auto rounded-lg block text-white font-bold`}
+          } py-1 mt-8 w-3/5 flex items-center justify-center mx-auto rounded-lg block text-white font-bold`}
         >
-          Login
+          {loading ? <ClipLoader size={24} color="#FFF" /> : "Login"}
         </button>
       </form>
       <hr className="mt-4" />

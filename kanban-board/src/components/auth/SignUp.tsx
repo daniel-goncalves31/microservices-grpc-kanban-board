@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import AuthIcon from "../../assets/auth_icon.png";
 import { useUserContext } from "../../contexts/UserContext";
 import { useSignUpMutation } from "../../graphql/generated";
@@ -71,6 +72,7 @@ const SignUp: React.FC<Props> = () => {
           error={formik.errors.name}
           touched={formik.touched.name}
           value={formik.values.name}
+          disabled={loading}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
@@ -81,6 +83,7 @@ const SignUp: React.FC<Props> = () => {
           error={formik.errors.email}
           touched={formik.touched.email}
           value={formik.values.email}
+          disabled={loading}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
@@ -91,6 +94,7 @@ const SignUp: React.FC<Props> = () => {
           error={formik.errors.password}
           touched={formik.touched.password}
           value={formik.values.password}
+          disabled={loading}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
@@ -113,7 +117,7 @@ const SignUp: React.FC<Props> = () => {
               : "bg-indigo-600 hover:bg-indigo-500"
           } py-1 mt-4 w-3/5 block mx-auto rounded-lg block text-white font-bold`}
         >
-          Sign Up
+          {loading ? <ClipLoader size={24} color="#FFF" /> : "Sign Up"}
         </button>
       </form>
       <hr className="mt-4" />
