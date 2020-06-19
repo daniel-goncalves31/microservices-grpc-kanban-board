@@ -1,4 +1,6 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, ID, Query, Resolver } from '@nestjs/graphql';
+import { UserAuthGuard } from 'src/shared/auth.guard';
 import { StagesResponse } from './stage.types';
 import { StagesService } from './stages.service';
 
@@ -6,6 +8,7 @@ import { StagesService } from './stages.service';
 export class StagesResolver {
   constructor(private readonly stagesService: StagesService) {}
 
+  @UseGuards(UserAuthGuard)
   @Query(() => StagesResponse)
   async getStages(
     @Args('projectId', { type: () => ID }) projectId: number,

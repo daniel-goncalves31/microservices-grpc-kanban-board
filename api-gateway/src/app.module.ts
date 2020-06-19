@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TasksModule } from './tasks/tasks.module';
 import { StagesModule } from './stages/stages.module';
+import { ProjectsModule } from './projects/projects.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -18,6 +19,7 @@ import { StagesModule } from './stages/stages.module';
     AuthModule,
     TasksModule,
     StagesModule,
+    ProjectsModule,
   ],
 })
 export class AppModule {}

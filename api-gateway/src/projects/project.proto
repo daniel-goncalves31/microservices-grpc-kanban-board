@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package project;
+
+import "./stage.proto";
+
+service ProjectService {
+  rpc GetAllProjects (UserIdRequest) returns (ProjectsResponse);
+  rpc CreateProject(NewProjectRequest) returns (ProjectResponse);
+  rpc UpdateProject (UpdateProjectRequest) returns (OkResponse);
+  rpc DeleteProject (ProjectIdRequest) returns (OkResponse);
+}
+
+enum Priority {
+  LOW = 0;
+  MEDIUM = 1;
+  HIGH = 2;
+}
+
+enum Status {
+  COMPLETED = 0;
+  IN_PROGRESS = 1;
+}
+
+message ProjectResponse {
+  int32 id = 1;
+  string name = 2;
+  Status status = 3;
+  Priority priority = 4;
+  string createdAt = 5;
+  string userId = 6;
+}
+
+message NewProjectRequest {
+  string name = 1;
+  Priority priority = 2;
+  string userId = 3;
+}
+
+message UpdateProjectRequest {
+  int32 id = 1;
+  string name = 2;
+  Status status = 3;
+  Priority priority = 4;
+}
+
+message ProjectsResponse {
+  repeated ProjectResponse projects = 1;
+}
+
+message UserIdRequest {
+  string userId = 1;
+}
+
+message OkResponse {
+  bool ok = 1;
+}
+
+message ProjectIdRequest {
+  int32 id = 1;
+}
+

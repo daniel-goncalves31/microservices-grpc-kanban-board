@@ -38,10 +38,35 @@ type StagesResponse {
   stages: [Stage!]!
 }
 
+type ProjectResponse {
+  id: ID!
+  name: String!
+  priority: Priority!
+  status: Status!
+  createdAt: String!
+  userId: ID!
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Status {
+  COMPLETED
+  IN_PROGRESS
+}
+
+type ProjectsResponse {
+  projects: [ProjectResponse!]!
+}
+
 type Query {
   me: UserResponse
   getAllUsers: MultipleUsersResponse!
   getStages(projectId: ID!): StagesResponse!
+  getProjects: ProjectsResponse!
 }
 
 type Mutation {
@@ -51,6 +76,9 @@ type Mutation {
   newTask(newTaskInput: NewTaskRequest!): TaskResponse!
   updateTask(updateTaskInput: UpdateTaskRequest!): OkResponse!
   deleteTask(taskIdInput: TaskIdRequest!): OkResponse!
+  createProject(newProjectInput: NewProjectRequest!): ProjectResponse!
+  updateProject(updateProjectInput: UpdateProjectRequest!): OkResponse!
+  deleteProject(projectId: ID!): OkResponse!
 }
 
 input LoginUserInput {
@@ -76,4 +104,16 @@ input UpdateTaskRequest {
 
 input TaskIdRequest {
   id: ID!
+}
+
+input NewProjectRequest {
+  name: String!
+  priority: Priority!
+}
+
+input UpdateProjectRequest {
+  id: ID!
+  name: String!
+  status: Status!
+  priority: Priority!
 }
