@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Client, ClientGrpc } from '@nestjs/microservices';
-import { grpcProjectOptions } from './grpcProjectOptions';
+import { grpcOptions } from '../shared/grpcOptions';
 import {
   NewProjectRequest,
   OkResponse,
@@ -12,7 +12,7 @@ import {
 
 @Injectable()
 export class ProjectsService implements OnModuleInit {
-  @Client(grpcProjectOptions)
+  @Client(grpcOptions)
   private readonly client: ClientGrpc;
 
   private projectProtoService: ProjectProtoService;

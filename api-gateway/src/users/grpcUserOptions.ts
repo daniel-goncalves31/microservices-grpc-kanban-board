@@ -7,6 +7,6 @@ export const userGrpcClientOptions: ClientOptions = {
   options: {
     url: process.env.USERS_SERVICE_URL,
     package: 'users',
-    protoPath: join(__dirname, 'users.proto'),
+    protoPath: join(__dirname, '../protos/users.proto'),
   },
 };

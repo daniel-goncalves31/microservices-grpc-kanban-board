@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+import "./users.proto";
+// The project proto file import the stage proto file that import the task proto file
+import "./project.proto";

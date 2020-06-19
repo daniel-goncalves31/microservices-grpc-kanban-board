@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package stage;
 
-import "../tasks/task.proto";
+import "./task.proto";
 
 service StageService {
   rpc GetAllProjectStages (ProjectIdRequest) returns (StagesResponse);

@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Client, ClientGrpc } from '@nestjs/microservices';
-import { taskGrpcClientOptions } from './grpcTaskOptions';
+import { grpcOptions } from '../shared/grpcOptions';
 import {
   NewTaskRequest,
   OkResponse,
@@ -12,7 +12,7 @@ import {
 
 @Injectable()
 export class TasksService implements OnModuleInit {
-  @Client(taskGrpcClientOptions)
+  @Client(grpcOptions)
   private readonly client: ClientGrpc;
 
   private taskProtoService: TaskProtoService;
