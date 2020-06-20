@@ -11,8 +11,8 @@ export type Scalars = {
   Float: number;
 };
 
-export type User = {
-  __typename?: 'User';
+export type UserResponse = {
+  __typename?: 'UserResponse';
   id: Scalars['String'];
   name: Scalars['String'];
   email: Scalars['String'];
@@ -20,20 +20,89 @@ export type User = {
 
 export type MultipleUsersResponse = {
   __typename?: 'MultipleUsersResponse';
-  users: Array<User>;
+  users: Array<UserResponse>;
+};
+
+export type TaskResponse = {
+  __typename?: 'TaskResponse';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type OkResponse = {
+  __typename?: 'OkResponse';
+  ok: Scalars['Boolean'];
+};
+
+export type Stage = {
+  __typename?: 'Stage';
+  id: Scalars['ID'];
+  progress: Progress;
+  projectId: Scalars['ID'];
+  tasks: Array<TaskResponse>;
+};
+
+export enum Progress {
+  Todo = 'TODO',
+  Doing = 'DOING',
+  Done = 'DONE'
+}
+
+export type StagesResponse = {
+  __typename?: 'StagesResponse';
+  stages: Array<Stage>;
+};
+
+export type ProjectResponse = {
+  __typename?: 'ProjectResponse';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  priority: Priority;
+  status: Status;
+  createdAt: Scalars['String'];
+  userId: Scalars['ID'];
+};
+
+export enum Priority {
+  Low = 'LOW',
+  Medium = 'MEDIUM',
+  High = 'HIGH'
+}
+
+export enum Status {
+  Completed = 'COMPLETED',
+  InProgress = 'IN_PROGRESS'
+}
+
+export type ProjectsResponse = {
+  __typename?: 'ProjectsResponse';
+  projects: Array<ProjectResponse>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<User>;
+  me?: Maybe<UserResponse>;
   getAllUsers: MultipleUsersResponse;
+  getStages: StagesResponse;
+  getProjects: ProjectsResponse;
+};
+
+
+export type QueryGetStagesArgs = {
+  projectId: Scalars['ID'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  login: User;
-  signUp: User;
+  login: UserResponse;
+  signUp: UserResponse;
   logOut: Scalars['Boolean'];
+  newTask: TaskResponse;
+  updateTask: OkResponse;
+  deleteTask: OkResponse;
+  createProject: ProjectResponse;
+  updateProject: OkResponse;
+  deleteProject: OkResponse;
 };
 
 
@@ -44,6 +113,36 @@ export type MutationLoginArgs = {
 
 export type MutationSignUpArgs = {
   signUpUserInput: SignUpUserInput;
+};
+
+
+export type MutationNewTaskArgs = {
+  newTaskInput: NewTaskRequest;
+};
+
+
+export type MutationUpdateTaskArgs = {
+  updateTaskInput: UpdateTaskRequest;
+};
+
+
+export type MutationDeleteTaskArgs = {
+  taskIdInput: TaskIdRequest;
+};
+
+
+export type MutationCreateProjectArgs = {
+  newProjectInput: NewProjectRequest;
+};
+
+
+export type MutationUpdateProjectArgs = {
+  updateProjectInput: UpdateProjectRequest;
+};
+
+
+export type MutationDeleteProjectArgs = {
+  projectId: Scalars['ID'];
 };
 
 export type LoginUserInput = {
@@ -57,6 +156,40 @@ export type SignUpUserInput = {
   email: Scalars['String'];
 };
 
+export type NewTaskRequest = {
+  name: Scalars['String'];
+  stageId: Scalars['ID'];
+};
+
+export type UpdateTaskRequest = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type TaskIdRequest = {
+  id: Scalars['ID'];
+};
+
+export type NewProjectRequest = {
+  name: Scalars['String'];
+  priority: Priority;
+};
+
+export type UpdateProjectRequest = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  status: Status;
+  priority: Priority;
+};
+
+export type LogOutMutationVariables = {};
+
+
+export type LogOutMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'logOut'>
+);
+
 export type LoginMutationVariables = {
   loginUserInput: LoginUserInput;
 };
@@ -65,8 +198,8 @@ export type LoginMutationVariables = {
 export type LoginMutation = (
   { __typename?: 'Mutation' }
   & { login: (
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'email'>
+    { __typename?: 'UserResponse' }
+    & Pick<UserResponse, 'id' | 'name' | 'email'>
   ) }
 );
 
@@ -78,8 +211,8 @@ export type SignUpMutationVariables = {
 export type SignUpMutation = (
   { __typename?: 'Mutation' }
   & { signUp: (
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'email'>
+    { __typename?: 'UserResponse' }
+    & Pick<UserResponse, 'id' | 'name' | 'email'>
   ) }
 );
 
@@ -89,12 +222,41 @@ export type MeQueryVariables = {};
 export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'email'>
+    { __typename?: 'UserResponse' }
+    & Pick<UserResponse, 'id' | 'name' | 'email'>
   )> }
 );
 
 
+export const LogOutDocument = gql`
+    mutation LogOut {
+  logOut
+}
+    `;
+export type LogOutMutationFn = ApolloReactCommon.MutationFunction<LogOutMutation, LogOutMutationVariables>;
+
+/**
+ * __useLogOutMutation__
+ *
+ * To run a mutation, you first call `useLogOutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogOutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logOutMutation, { data, loading, error }] = useLogOutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogOutMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LogOutMutation, LogOutMutationVariables>) {
+        return ApolloReactHooks.useMutation<LogOutMutation, LogOutMutationVariables>(LogOutDocument, baseOptions);
+      }
+export type LogOutMutationHookResult = ReturnType<typeof useLogOutMutation>;
+export type LogOutMutationResult = ApolloReactCommon.MutationResult<LogOutMutation>;
+export type LogOutMutationOptions = ApolloReactCommon.BaseMutationOptions<LogOutMutation, LogOutMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($loginUserInput: LoginUserInput!) {
   login(loginUserInput: $loginUserInput) {

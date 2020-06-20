@@ -1,6 +1,6 @@
 import { useApolloClient } from "@apollo/react-hooks";
 import React, { useContext, useEffect, useState } from "react";
-import { MeDocument, User } from "../graphql/generated";
+import { MeDocument, UserResponse as User } from "../graphql/generated";
 
 interface Context {
   currentUser: User | null | undefined;
