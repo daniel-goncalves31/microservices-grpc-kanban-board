@@ -10,8 +10,12 @@ body,
   font-family: "Poppins", sans-serif;
 }
 
+@tailwind utilities;
+
 * {
   outline: none;
 }
 
-@tailwind utilities;
+button:active {
+  transform: scale(0.95);
+}

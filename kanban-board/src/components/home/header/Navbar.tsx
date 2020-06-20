@@ -1,7 +1,7 @@
 import React from "react";
-import { useUserContext } from "../../contexts/UserContext";
-import { useLogOutMutation } from "../../graphql/generated";
-import handleErrors from "../../utils/handleApolloErrors";
+import { useUserContext } from "../../../contexts/UserContext";
+import { useLogOutMutation } from "../../../graphql/generated";
+import handleErrors from "../../../utils/handleApolloErrors";
 
 interface Props {}
 

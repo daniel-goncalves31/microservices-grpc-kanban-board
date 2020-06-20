@@ -614,10 +614,6 @@ body,
   font-family: "Poppins", sans-serif;
 }
 
-* {
-  outline: none;
-}
-
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));
@@ -14353,6 +14349,14 @@ body,
 
 .delay-1000 {
   transition-delay: 1000ms;
+}
+
+* {
+  outline: none;
+}
+
+button:active {
+  transform: scale(0.95);
 }
 
 @media (min-width: 640px) {
