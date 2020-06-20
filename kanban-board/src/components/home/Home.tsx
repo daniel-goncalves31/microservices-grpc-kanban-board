@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import React from "react";
+import { ProjectProvider } from "../../contexts/ProjectContext";
 import ActionsSection from "./header/ActionsSection";
 import Navbar from "./header/Navbar";
 
@@ -31,7 +32,9 @@ const Home: React.FC<Props> = () => {
     >
       <Navbar />
       <div className="p-4">
-        <ActionsSection />
+        <ProjectProvider>
+          <ActionsSection />
+        </ProjectProvider>
       </div>
     </motion.div>
   );

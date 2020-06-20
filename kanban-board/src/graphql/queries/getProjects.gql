@@ -1,0 +1,11 @@
+query GetProjects {
+  getProjects {
+    projects {
+      id
+      name
+      priority
+      status
+      createdAt
+    }
+  }
+}
