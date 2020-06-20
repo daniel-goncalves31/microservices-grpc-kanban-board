@@ -6,6 +6,7 @@ import { ClipLoader } from "react-spinners";
 import AuthIcon from "../../assets/auth_icon.png";
 import { useUserContext } from "../../contexts/UserContext";
 import { useLoginMutation } from "../../graphql/generated";
+import handleErrors from "../../utils/handleApolloErrors";
 import { loginValidationSchema } from "../../utils/validation-schemas/login";
 import Input from "../shared/Input";
 interface Props {}
@@ -31,7 +32,7 @@ const Login: React.FC<Props> = () => {
 
       console.log(data);
     } catch (error) {
-      console.error(error.message);
+      handleErrors(error);
     }
   };
 

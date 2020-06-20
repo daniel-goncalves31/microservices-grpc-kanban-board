@@ -6,6 +6,7 @@ import { ClipLoader } from "react-spinners";
 import AuthIcon from "../../assets/auth_icon.png";
 import { useUserContext } from "../../contexts/UserContext";
 import { useSignUpMutation } from "../../graphql/generated";
+import handleErrors from "../../utils/handleApolloErrors";
 import { signUpValidationSchema } from "../../utils/validation-schemas/signUp";
 import Input from "../shared/Input";
 
@@ -31,10 +32,8 @@ const SignUp: React.FC<Props> = () => {
       if (data && data.signUp) {
         setCurrentUser(data.signUp);
       }
-
-      console.log(data);
     } catch (error) {
-      console.error(error.message);
+      handleErrors(error);
     }
   };
 
