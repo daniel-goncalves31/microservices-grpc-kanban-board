@@ -3,7 +3,9 @@ import React from "react";
 import {
   NewProjectRequest as NewProject,
   Priority,
+  useCreateProjectMutation,
 } from "../../../graphql/generated";
+import handleErrors from "../../../utils/handleApolloErrors";
 import { newProjectValidationSchema } from "../../../utils/validation-schemas/new-project";
 import Input from "../../shared/Input";
 import Modal from "../../shared/Modal";
@@ -14,8 +16,16 @@ interface Props {
 }
 
 const ProjectModal: React.FC<Props> = ({ setModalIsOpen }) => {
+  const [createProject, { loading }] = useCreateProjectMutation();
+
   const onSubmit = async (newProjectInput: NewProject) => {
-    console.log(newProjectInput);
+    try {
+      const res = await createProject({ variables: { newProjectInput } });
+      console.log(res);
+      setModalIsOpen(false);
+    } catch (error) {
+      handleErrors(error);
+    }
   };
 
   const closeModal = () => {
@@ -40,13 +50,13 @@ const ProjectModal: React.FC<Props> = ({ setModalIsOpen }) => {
         error={formik.errors.name}
         touched={formik.touched.name}
         value={formik.values.name}
-        // disabled={loading}
+        disabled={loading}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
       />
       <Select
         label="Priority"
-        loading={false}
+        loading={loading}
         name="priority"
         onChange={(priority: any) => {
           formik.values.priority = priority.value;

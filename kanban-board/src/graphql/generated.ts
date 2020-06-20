@@ -60,7 +60,6 @@ export type ProjectResponse = {
   priority: Priority;
   status: Status;
   createdAt: Scalars['String'];
-  userId: Scalars['ID'];
 };
 
 export enum Priority {
@@ -182,6 +181,19 @@ export type UpdateProjectRequest = {
   priority: Priority;
 };
 
+export type CreateProjectMutationVariables = {
+  newProjectInput: NewProjectRequest;
+};
+
+
+export type CreateProjectMutation = (
+  { __typename?: 'Mutation' }
+  & { createProject: (
+    { __typename?: 'ProjectResponse' }
+    & Pick<ProjectResponse, 'id' | 'name' | 'priority' | 'status' | 'createdAt'>
+  ) }
+);
+
 export type LogOutMutationVariables = {};
 
 
@@ -228,6 +240,42 @@ export type MeQuery = (
 );
 
 
+export const CreateProjectDocument = gql`
+    mutation CreateProject($newProjectInput: NewProjectRequest!) {
+  createProject(newProjectInput: $newProjectInput) {
+    id
+    name
+    priority
+    status
+    createdAt
+  }
+}
+    `;
+export type CreateProjectMutationFn = ApolloReactCommon.MutationFunction<CreateProjectMutation, CreateProjectMutationVariables>;
+
+/**
+ * __useCreateProjectMutation__
+ *
+ * To run a mutation, you first call `useCreateProjectMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProjectMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProjectMutation, { data, loading, error }] = useCreateProjectMutation({
+ *   variables: {
+ *      newProjectInput: // value for 'newProjectInput'
+ *   },
+ * });
+ */
+export function useCreateProjectMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateProjectMutation, CreateProjectMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, baseOptions);
+      }
+export type CreateProjectMutationHookResult = ReturnType<typeof useCreateProjectMutation>;
+export type CreateProjectMutationResult = ApolloReactCommon.MutationResult<CreateProjectMutation>;
+export type CreateProjectMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateProjectMutation, CreateProjectMutationVariables>;
 export const LogOutDocument = gql`
     mutation LogOut {
   logOut

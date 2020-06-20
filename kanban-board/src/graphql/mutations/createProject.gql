@@ -1,0 +1,9 @@
+mutation CreateProject($newProjectInput: NewProjectRequest!) {
+  createProject(newProjectInput: $newProjectInput) {
+    id
+    name
+    priority
+    status
+    createdAt
+  }
+}
