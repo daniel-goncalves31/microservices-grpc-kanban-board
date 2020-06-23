@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import React from "react";
+import { useProjectContext } from "../../../contexts/ProjectContext";
 import {
   NewProjectRequest as NewProject,
   Priority,
@@ -16,12 +17,15 @@ interface Props {
 }
 
 const ProjectModal: React.FC<Props> = ({ setModalIsOpen }) => {
+  const { setProjects } = useProjectContext();
   const [createProject, { loading }] = useCreateProjectMutation();
 
   const onSubmit = async (newProjectInput: NewProject) => {
     try {
-      const res = await createProject({ variables: { newProjectInput } });
-      console.log(res);
+      const { data } = await createProject({ variables: { newProjectInput } });
+      if (data && data.createProject) {
+        setProjects((prevProjects) => [...prevProjects!, data.createProject]);
+      }
       setModalIsOpen(false);
     } catch (error) {
       handleErrors(error);

@@ -29,8 +29,6 @@ const Login: React.FC<Props> = () => {
       if (data && data.login) {
         setCurrentUser(data.login);
       }
-
-      console.log(data);
     } catch (error) {
       handleErrors(error);
     }

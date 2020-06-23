@@ -3,6 +3,7 @@ import React from "react";
 import { ProjectProvider } from "../../contexts/ProjectContext";
 import ActionsSection from "./header/ActionsSection";
 import Navbar from "./header/Navbar";
+import Projects from "./projects/Projects";
 
 interface Props {}
 
@@ -34,6 +35,8 @@ const Home: React.FC<Props> = () => {
       <div className="p-4">
         <ProjectProvider>
           <ActionsSection />
+          <hr className="my-4" />
+          <Projects />
         </ProjectProvider>
       </div>
     </motion.div>

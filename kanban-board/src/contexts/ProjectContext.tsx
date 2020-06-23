@@ -43,6 +43,7 @@ const ProjectProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     fetchProject();
+    // eslint-disable-next-line
   }, []);
 
   return (
